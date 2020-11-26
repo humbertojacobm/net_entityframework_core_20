@@ -6,6 +6,17 @@ namespace SamuraiApp.Data
 {
     public class SamuraiContext: DbContext
     {
+        public SamuraiContext()
+        {
+
+        }
+
+        public SamuraiContext(DbContextOptions options)
+            :base(options)
+        {
+
+        }
+
         public DbSet<Samurai> Samurais { get; set; }
         public DbSet<Quote> Quotes { get; set; }
         public DbSet<Clan> Clans { get; set; }
@@ -26,8 +37,11 @@ namespace SamuraiApp.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder
+            if(!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder
                 .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog = SamuraiTestData");
+            }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
