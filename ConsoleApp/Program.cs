@@ -17,7 +17,7 @@ namespace ConsoleApp
             //GetSamurais("Before Add:");
             //AddSamurai();
             //GetSamurais("After Add:");
-            //InsertMultipleSamurais();
+            InsertMultipleSamurais();
             //QueryFilters();
             //RetrieveAndUpdateSamurai();
             //RetrieveAndUpdateMultipleSamurais();
@@ -56,9 +56,26 @@ namespace ConsoleApp
             //DANGERDANGERQueryUsingRawSqlWithInterpolation();
             //QueryUsingFromRawSqlStoredProc();
             //InterpolatedRawSqlQueryStoredProc();
-            ExecuteSomeRawSql();
+            //ExecuteSomeRawSql();
             //Console.Write("Press any key...");
             //Console.ReadKey();
+        }
+
+        public Samurai GetSamuraiWithQuotes(int samuraiId)
+        {
+            var samuraiWithQuotes = _context.Samurais.Where(s => s.Id == samuraiId)
+                .Include(s => s.Quotes)
+                .FirstOrDefault();
+            return samuraiWithQuotes;
+        }
+        private static void InsertMultipleSamurais2()
+        {
+            var _bizdata = new BusinessDataLogic();
+            var samuraiNames = new String[]
+            {
+                "Sampson","Tasha","Number 3","Number 4"
+            };
+            var newSamuraisCreated = _bizdata.AddMultipleSamurais(samuraiNames);
         }
         private static void InsertMultipleSamurais()
         {
